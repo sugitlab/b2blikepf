@@ -1,19 +1,83 @@
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<ilnk rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content= {Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/blog">Blog</a>
-		<h1>About Me</h1>
-    <h2>... and my new Atro site</h2>
-    <p>I am working through Astro's introductory tutorial. This is the second page on my web site.</p>
-    <p>This site will update as I complete more of the tutorial.</p>
-	</body>
-</html>
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
+const pageTitle = "About Me";
+
+const identity = {
+  firstName: "Shinji",
+  country: "Japan",
+  occupation: "Product Manager",
+  hobbies: ["Flutter", "Camera", "Camp"],
+};
+
+const skills = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Flutter",
+  "C#",
+  "C++",
+];
+
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "uppercase";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head><ilnk rel="icon" type="image/svg+xml" href="/favicon.ico"></ilnk>
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>Astro</title>
+  <style define:vars={{ skillColor, fontWeight, textCase }}>
+    h1 {
+      color: purple;
+      font-size: 4rem;
+    }
+    .skill {
+      color: var(--skillColor);
+      font-weight: var(--fontWeight);
+      text-transform: var(--textCase);
+    }
+  </style>
+  <body>
+    <Header />
+    <h1>{pageTitle}</h1>
+    <h2>... and my new Atro site</h2>
+    <p>
+      I am working through Astro's introductory tutorial. This is the second
+      page on my web site.
+    </p>
+    <p>This site will update as I complete more of the tutorial.</p>
+    <p>Here are a few facts about me:</p>
+    <ul>
+      <li>My name is {identity.firstName}.</li>
+      <li>
+        I live in {identity.country} and I work as a {identity.occupation}.
+      </li>
+      {
+        identity.hobbies.length >= 2 && (
+          <li>
+            Two of my hobbies are: {identity.hobbies[0]} and{" "}
+            {identity.hobbies[1]}
+          </li>
+        )
+      }
+    </ul>
+    <ul>
+      {skills.map((skill) => <li class="skill">{skill}</li>)}
+    </ul>
+    <Footer />
+    <script>
+      import "../scripts/menu.js";
+    </script>
+  </body>
+
+
+</html>
